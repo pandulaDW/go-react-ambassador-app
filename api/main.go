@@ -1,25 +1,18 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/pandulaDW/go-react-ambassador-app/database"
 )
 
-
 func main() {
-	db, err := gorm.Open(mysql.Open("root:root@tcp(db:3306)/ambassador"), &gorm.Config{})
-	if err != nil {
-		log.Fatal(err)
-	}
-	_ = db
+	database.Connect()
+	database.AutoMigrate()
 
 	app := fiber.New()
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World 👋!")
+		return c.SendString("Hello, Mate 👋!")
 	})
 
 	app.Listen(":3000")

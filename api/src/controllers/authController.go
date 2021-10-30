@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/pandulaDW/go-react-ambassador-app/database"
-	"github.com/pandulaDW/go-react-ambassador-app/models"
+	"github.com/pandulaDW/go-react-ambassador-app/src/database"
+	"github.com/pandulaDW/go-react-ambassador-app/src/models"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )

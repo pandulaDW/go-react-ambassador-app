@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/pandulaDW/go-react-ambassador-app/controllers"
+	"github.com/pandulaDW/go-react-ambassador-app/src/controllers"
 )
 
 // Setup routes of the app

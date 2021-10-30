@@ -2,10 +2,10 @@ package database
 
 import (
 	"fmt"
+	"github.com/pandulaDW/go-react-ambassador-app/src/models"
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/pandulaDW/go-react-ambassador-app/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

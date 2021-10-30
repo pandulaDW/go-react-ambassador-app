@@ -1,0 +1,15 @@
+###
+GET http://localhost:8000/api/health
+Accept: text/plain
+
+###
+POST http://localhost:8000/api/admin/register
+Content-Type: application/json
+
+{
+  "first_name": "john-{{$randomInt}}",
+  "last_name": "smalling-{{$randomInt}}",
+  "email": "john-{{$uuid}}@gmail.com",
+  "password": "test",
+  "password_confirm": "test"
+}

@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/pandulaDW/go-react-ambassador-app/database"
+	"github.com/pandulaDW/go-react-ambassador-app/routes"
+	"log"
 )
 
 func main() {
@@ -10,10 +12,7 @@ func main() {
 	database.AutoMigrate()
 
 	app := fiber.New()
+	routes.Setup(app)
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, Mate 👋!")
-	})
-
-	app.Listen(":3000")
+	log.Fatal(app.Listen(":3000"))
 }

@@ -29,11 +29,15 @@ func Connect() {
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("error connecting to the db: ", err)
-		return
+		os.Exit(1)
 	}
 }
 
 // AutoMigrate will migrate the tables
 func AutoMigrate() {
-	DB.AutoMigrate(models.User{})
+	err := DB.AutoMigrate(models.User{})
+	if err != nil {
+		fmt.Println("error migrating the tables: ", err)
+		os.Exit(1)
+	}
 }

@@ -8,7 +8,10 @@ require github.com/joho/godotenv v1.4.0
 
 require golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
 
-require github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+require (
+	github.com/bxcodec/faker/v3 v3.6.0 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+)
 
 require (
 	github.com/andybalholm/brotli v1.0.3 // indirect

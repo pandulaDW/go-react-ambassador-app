@@ -29,7 +29,7 @@ func Register(c *fiber.Ctx) error {
 		Email:        data["email"],
 		IsAmbassador: false,
 	}
-	user.Password = user.SetPassword([]byte(data["password"]))
+	user.SetPassword([]byte(data["password"]))
 
 	database.DB.Create(&user)
 
@@ -154,8 +154,8 @@ func UpdatePassword(c *fiber.Ctx) error {
 	if data["new_password"] != data["confirm_new_password"] {
 		return helpers.BadRequest(c, "Passwords doesn't match")
 	}
+	user.SetPassword([]byte(data["new_password"]))
 
-	user.Password = user.SetPassword([]byte(data["new_password"]))
 	database.DB.Model(models.User{Id: id}).Updates(&user)
 
 	return c.JSON(user)

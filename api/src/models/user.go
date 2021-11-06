@@ -13,9 +13,9 @@ type User struct {
 	IsAmbassador bool   `json:"-"`
 }
 
-func (user *User) SetPassword(password []byte) []byte {
+func (user *User) SetPassword(password []byte) {
 	encryptedPassword, _ := bcrypt.GenerateFromPassword(password, 12)
-	return encryptedPassword
+	user.Password = encryptedPassword
 }
 
 func (user *User) ComparePassword(password []byte) error {

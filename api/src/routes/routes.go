@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/pandulaDW/go-react-ambassador-app/src/controllers"
+	"github.com/pandulaDW/go-react-ambassador-app/src/middlewares"
 )
 
 // Setup routes of the app
@@ -16,4 +17,8 @@ func Setup(app *fiber.App) {
 	admin := api.Group("/admin")
 	admin.Post("/register", controllers.Register)
 	admin.Post("/login", controllers.Login)
+
+	adminAuthenticated := admin.Use(middlewares.IsAuthenticated)
+	adminAuthenticated.Get("/user", controllers.User)
+	adminAuthenticated.Post("/logout", controllers.Logout)
 }

@@ -22,3 +22,6 @@ Content-Type: application/json
   "email": "john@gmail.com",
   "password": "test"
 }
+
+###
+GET http://localhost:8000/api/admin/user

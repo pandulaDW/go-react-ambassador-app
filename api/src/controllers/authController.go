@@ -5,6 +5,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/pandulaDW/go-react-ambassador-app/src/database"
 	"github.com/pandulaDW/go-react-ambassador-app/src/helpers"
+	"github.com/pandulaDW/go-react-ambassador-app/src/middlewares"
 	"github.com/pandulaDW/go-react-ambassador-app/src/models"
 	"strconv"
 	"time"
@@ -71,5 +72,31 @@ func Login(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{
 		"message": "Success",
+	})
+}
+
+func User(c *fiber.Ctx) error {
+	userId, err := middlewares.GetUserId(c)
+	if err != nil {
+		return helpers.UnAuthorizedRequest(c, "unauthenticated")
+	}
+
+	var user models.User
+	database.DB.Where("id = ?", userId).First(&user)
+
+	return c.JSON(user)
+}
+
+func Logout(c *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+	c.Cookie(&cookie)
+
+	return c.JSON(fiber.Map{
+		"message": "success",
 	})
 }

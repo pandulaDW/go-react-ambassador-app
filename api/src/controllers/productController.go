@@ -50,7 +50,7 @@ func UpdateProduct(c *fiber.Ctx) error {
 		return helpers.BadRequest(c, "Invalid value for id")
 	}
 
-	product := models.Product{Id: uint(productId)}
+	product := models.Product{Model: models.Model{Id: uint(productId)}}
 	if err = c.BodyParser(&product); err != nil {
 		return helpers.BadRequest(c, "Invalid request")
 	}
@@ -66,7 +66,7 @@ func DeleteProduct(c *fiber.Ctx) error {
 		return helpers.BadRequest(c, "Invalid value for id")
 	}
 
-	product := models.Product{Id: uint(productId)}
+	product := models.Product{Model: models.Model{Id: uint(productId)}}
 
 	database.DB.Delete(&product)
 	return c.Status(http.StatusNoContent).JSON("")

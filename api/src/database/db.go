@@ -10,6 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// DB refers to a connection pool
 var DB *gorm.DB
 
 func init() {
@@ -35,9 +36,19 @@ func Connect() {
 
 // AutoMigrate will migrate the tables
 func AutoMigrate() {
-	err := DB.AutoMigrate(models.User{}, models.Product{})
+	err := DB.AutoMigrate(models.User{}, models.Product{}, models.Link{})
 	if err != nil {
 		fmt.Println("error migrating the tables: ", err)
+		os.Exit(1)
+	}
+}
+
+// CloseConnection closes the DB connection
+func CloseConnection() {
+	sqlDB, _ := DB.DB()
+	err := sqlDB.Close()
+	if err != nil {
+		fmt.Println("Error in closing DB: ", err.Error())
 		os.Exit(1)
 	}
 }

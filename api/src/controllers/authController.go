@@ -122,7 +122,8 @@ func UpdateInfo(c *fiber.Ctx) error {
 	if lastName, ok := data["last_name"]; ok {
 		user.LastName = lastName
 	}
-	database.DB.Model(models.User{Id: id}).Updates(&user)
+
+	database.DB.Model(models.User{Model: models.Model{Id: id}}).Updates(&user)
 
 	var updatedUser models.User
 	database.DB.Where("id = ?", id).First(&updatedUser)
@@ -156,7 +157,7 @@ func UpdatePassword(c *fiber.Ctx) error {
 	}
 	user.SetPassword([]byte(data["new_password"].(string)))
 
-	database.DB.Model(models.User{Id: id}).Updates(&user)
+	database.DB.Model(models.User{Model: models.Model{Id: id}}).Updates(&user)
 
 	return c.JSON(user)
 }

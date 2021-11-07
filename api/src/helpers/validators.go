@@ -4,7 +4,7 @@ package helpers
 // request body.
 //
 // Returns the first missing field found
-func RequiredFieldsIncluded(req map[string]string, fields []string) (string, bool) {
+func RequiredFieldsIncluded(req map[string]interface{}, fields []string) (string, bool) {
 	for _, field := range fields {
 		if _, ok := req[field]; !ok {
 			return field, false

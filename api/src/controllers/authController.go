@@ -132,7 +132,7 @@ func UpdateInfo(c *fiber.Ctx) error {
 
 // UpdatePassword updates the user info
 func UpdatePassword(c *fiber.Ctx) error {
-	var data map[string]string
+	var data map[string]interface{}
 	fields := []string{"current_password", "new_password", "confirm_new_password"}
 
 	if err := c.BodyParser(&data); err != nil {
@@ -147,14 +147,14 @@ func UpdatePassword(c *fiber.Ctx) error {
 	var user models.User
 	database.DB.Where("id = ?", id).First(&user)
 
-	if err := user.ComparePassword([]byte(data["current_password"])); err != nil {
+	if err := user.ComparePassword([]byte(data["current_password"].(string))); err != nil {
 		return helpers.BadRequest(c, "Current password is incorrect")
 	}
 
 	if data["new_password"] != data["confirm_new_password"] {
 		return helpers.BadRequest(c, "Passwords doesn't match")
 	}
-	user.SetPassword([]byte(data["new_password"]))
+	user.SetPassword([]byte(data["new_password"].(string)))
 
 	database.DB.Model(models.User{Id: id}).Updates(&user)
 

@@ -35,7 +35,7 @@ func Connect() {
 
 // AutoMigrate will migrate the tables
 func AutoMigrate() {
-	err := DB.AutoMigrate(models.User{})
+	err := DB.AutoMigrate(models.User{}, models.Product{})
 	if err != nil {
 		fmt.Println("error migrating the tables: ", err)
 		os.Exit(1)
